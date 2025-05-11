@@ -65,7 +65,6 @@ const Portfolio = () => {
               title={service.title}
               description={service.description}
               imageUrl={service.imageUrl}
-              imageAlt={service.imageAlt}
               link={service.link}
               index={index}
             />

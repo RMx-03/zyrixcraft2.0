@@ -6,7 +6,6 @@ interface ServiceTileProps {
   title: string;
   description: string;
   imageUrl: string;
-  imageAlt: string;
   link: string;
   index: number;
 }
@@ -16,7 +15,6 @@ const ServiceTile: FC<ServiceTileProps> = ({
   title, 
   description, 
   imageUrl, 
-  imageAlt,
   link,
   index 
 }) => {
@@ -61,7 +59,7 @@ const ServiceTile: FC<ServiceTileProps> = ({
   
   // image rotation on hover/expand
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     
     if (isHovered || isExpanded) {
       interval = setInterval(() => {
@@ -78,7 +76,7 @@ const ServiceTile: FC<ServiceTileProps> = ({
 
   // Handle description visibility with delay after expansion
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
   
     if (isHovered && isExpanded) {
       // Show immediately when both are true

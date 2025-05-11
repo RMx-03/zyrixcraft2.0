@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { FaHome, FaInfoCircle, FaTools, FaImage, FaPhone } from 'react-icons/fa';
 
 type NavItem = {
   name: string;
-  icon: JSX.Element;
+  icon: ReactNode;
 };
 
 const CircularNavApp = () => {
@@ -171,7 +171,7 @@ const CircularNavApp = () => {
       </div>
 
       {/* CSS for animations - would normally go in a style tag or CSS file */}
-      <style jsx>{`
+      <style>{`
         @keyframes typing {
           from { width: 0; }
           to { width: 280px; }
@@ -198,8 +198,6 @@ const CircularNavApp = () => {
           border-right: 2px solid #ff6b00;
           white-space: nowrap;
           overflow: hidden;
-          width: 0;
-          animation: typing 3s steps(20, end) forwards;
         }
       `}</style>
     </div>

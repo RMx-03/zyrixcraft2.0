@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, ReactNode } from "react";
+import React, { lazy, Suspense, ReactNode, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Wrapper from "./components/Wrapper";
 import NotFound from "./components/NotFound"; // Make sure path is correct
@@ -37,14 +37,16 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 }
 
 function App() {
+  const [overlay, setOverlay] = useState(false);
+  
   return (
-    <div className="bg-[var(--color-background)] overflow-x-hidden">
+    <div className={`bg-[var(--color-background)] overflow-x-hidden ${overlay ? 'overlay-active' : ''}`}>
       <Router>
         <ErrorBoundary>
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               <Route path="/" element={<Wrapper />} />
-              <Route path="/client" element={<ClientHome />} />
+              <Route path="/client" element={<ClientHome setOverlay={setOverlay} />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

@@ -3,9 +3,8 @@ import { useForm, ValidationError } from "@formspree/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../assets/ZyrixcraftLogo.webp";
-import { FiX,FiLinkedin,FiSend  } from "react-icons/fi";
-import {FaInstagram , FaXTwitter ,FaWhatsapp   } from "react-icons/fa6";
-import { HiArrowLongDown } from "react-icons/hi2";
+import { FiX, FiLinkedin, FiSend } from "react-icons/fi";
+import { FaInstagram, FaXTwitter, FaWhatsapp } from "react-icons/fa6";
 import '../style/BecomeClient.css'
 
 type ClientHomeProps = {
@@ -14,6 +13,7 @@ type ClientHomeProps = {
 
 const ClientHome: React.FC<ClientHomeProps> = ({ setOverlay }) => {
   const [state, handleSubmit] = useForm("xblgzgjv");
+  
   // Show success or error toast based on form submission result
   React.useEffect(() => {
     if (state.succeeded) {
@@ -22,9 +22,7 @@ const ClientHome: React.FC<ClientHomeProps> = ({ setOverlay }) => {
       toast.error("Something went wrong! Please try again. ❌");
     }
   }, [state.succeeded, state.errors]);
-  const handleClose = () => {
-    navigate("/");
-  }
+  
   return (
     <div className="fixed z-101 inset-0 w-full h-screen flex flex-row md:flex-row flex-col items-stretch justify-center shadow-lg overflow-hidden">
       {/* Left Section - Hidden on mobile */}

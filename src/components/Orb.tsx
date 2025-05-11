@@ -220,11 +220,8 @@ export default function Orb({
     let currentRot = 0;
     const rotationSpeed = 0.3; // radians per second
 
-    interface MouseMoveEvent extends MouseEvent {
-      currentTarget: EventTarget & HTMLDivElement;
-    }
-
-    const handleMouseMove = (e: MouseMoveEvent) => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!container) return;
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -251,7 +248,7 @@ export default function Orb({
     container.addEventListener("mouseleave", handleMouseLeave);
 
     let rafId: number;
-    const update = (t) => {
+    const update = (t: number) => {
       rafId = requestAnimationFrame(update);
       const dt = (t - lastTime) * 0.001;
       lastTime = t;
