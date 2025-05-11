@@ -1,6 +1,5 @@
 import "../App.css";
 import Paragraph from "../components/Paragraph"; 
-import Paragraph from "../components/Paragraph"; 
 
 interface Card {
   title: string;
@@ -16,7 +15,6 @@ const cardData: Card[] = [
   {
     title: "Graphic Design.",
     description:
-      "From logos to full branding kits, we create visually compelling designs that communicate your message and capture your audience's attention.",
       "From logos to full branding kits, we create visually compelling designs that communicate your message and capture your audience's attention.",
   },
   {
@@ -55,7 +53,6 @@ const Service: React.FC = () => {
       </div>
 
       {/* Animated Text */}
-      <div className="mt-8 ml-3 sm:mt-10 md:mt-14 mb-8 sm:mb-10 md:mb-14">
       <div className="mt-8 ml-3 sm:mt-10 md:mt-14 mb-8 sm:mb-10 md:mb-14">
         <Paragraph text={text} />
       </div>
