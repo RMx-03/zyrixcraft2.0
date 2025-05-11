@@ -6,9 +6,20 @@
     align-items: center;
     background: rgba(0, 0, 0, 0.85); /* translucent */
     color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.85); /* translucent */
+    color: #fff;
   }
   
   #right {
+    background: #160f0f; /* solid */
+    color: #fff;
+    padding: 2rem 2.5rem;
+    height: 100vh;
+    overflow-y: auto;
     background: #160f0f; /* solid */
     color: #fff;
     padding: 2rem 2.5rem;
@@ -19,15 +30,21 @@
   #contact-heading {
     font-size: 2rem;
     text-align: left;
+    font-size: 2rem;
+    text-align: left;
   }
   
   #down-arrow {
+    width: 100px;
+    margin: 0 auto;
     width: 100px;
     margin: 0 auto;
     display: none;
   }
   
   #contact-subtext {
+    font-size: 1rem;
+    text-align: left;
     font-size: 1rem;
     text-align: left;
     display: block;
@@ -42,10 +59,14 @@
   #name-label,
   #email-label {
     margin: 0.5rem 0;
+    margin: 0.5rem 0;
     display: block;
   }
   
   #input-wrapper {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
     flex-direction: column;
     width: 100%;
     gap: 1rem;
@@ -54,27 +75,45 @@
   #name-input-box,
   #email-input-box {
     width: 100%;
+    width: 100%;
   }
+  
   
   #name-input,
   #email-input {
+    width: 100%;
     width: 100%;
   }
   
   #message-label {
     margin: 0.5rem 0;
     display: block;
+  
+  #message-label {
+    margin: 0.5rem 0;
+    display: block;
   }
   
+  
   #message-wrapper {
+    width: 100%;
     width: 100%;
   }
   
   #message-textarea {
-    height: 100px;
+    height: 150px;
   }
   
   #submit-btn {
+    width: 100%;
+    background-color: #4c3c3c;
+    transition: all 0.3s ease;
+  }
+  
+  #submit-btn:hover {
+    background-color: #ff5722;
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     width: 100%;
     background-color: #4c3c3c;
     transition: all 0.3s ease;
@@ -97,7 +136,7 @@
   }
   
   #close-btn:hover {
-    color: black;
+    color: #ff5722 !important;
     transform: scale(1.1);
   }
 
@@ -198,10 +237,15 @@
     
     /* Close button */
     #close-btn {
-      
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: white; 
     }
     
     #close-btn:hover {
+      color: #ff5722 !important;
+      transform: scale(1.1);
     }
   }
   

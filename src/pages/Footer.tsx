@@ -27,7 +27,7 @@ const Footer = () => {
 
     return (
         <div
-            id="Footer"
+            id="footer"
             className="w-screen min-h-[80vh] flex flex-col items-center pt-16 user-select-none pb-10"
             style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
         >
@@ -59,7 +59,9 @@ const Footer = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-2 hover:text-blue-400 transition-colors"
+                                className="flex items-center gap-2 hover:text-blue-400 transition-colors"
                             >
+                                <Icon size={22} />
                                 <Icon size={22} />
                                 <span className='hidden md:block'>{label}</span>
                             </a>
@@ -69,7 +71,9 @@ const Footer = () => {
 
                 {/* Main Footer Content Container */}
                 <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-start mt-10 pb-5 px-4">
+                <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-start mt-10 pb-5 px-4">
                     {/* Contact Us (left) */}
+                    <div className="text-left md:pl-4 lg:pl-[2em]">
                     <div className="text-left md:pl-4 lg:pl-[2em]">
                         <h2 className="text-xl font-bold mb-6 text-white">Contact us</h2>
                         <div className="space-y-4 text-white text-sm">
@@ -105,6 +109,7 @@ const Footer = () => {
                     </div>
 
                     {/* Quick Links (right) */}
+                    <div className="text-left md:text-right mt-8 md:mt-0 md:pr-4 lg:pr-[2em]">
                     <div className="text-left md:text-right mt-8 md:mt-0 md:pr-4 lg:pr-[2em]">
                         <h2 className="text-xl font-bold mb-6 text-white">Quick Links</h2>
                         <div className="space-y-4 text-white text-sm">
