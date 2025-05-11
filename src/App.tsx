@@ -39,6 +39,11 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 function App() {
   const [overlay, setOverlay] = useState(false);
   
+  // Log overlay state changes to help with debugging
+  React.useEffect(() => {
+    console.log("Overlay state changed:", overlay);
+  }, [overlay]);
+  
   return (
     <div className={`bg-[var(--color-background)] overflow-x-hidden ${overlay ? 'overlay-active' : ''}`}>
       <Router>

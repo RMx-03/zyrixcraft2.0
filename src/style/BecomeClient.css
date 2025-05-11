@@ -6,12 +6,6 @@
     align-items: center;
     background: rgba(0, 0, 0, 0.85); /* translucent */
     color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.85); /* translucent */
-    color: #fff;
   }
   
   #right {
@@ -20,16 +14,32 @@
     padding: 2rem 2.5rem;
     height: 100vh;
     overflow-y: auto;
-    background: #160f0f; /* solid */
-    color: #fff;
-    padding: 2rem 2.5rem;
-    height: 100vh;
-    overflow-y: auto;
+  }
+  
+  /* Overlay styles */
+  .overlay-active {
+    overflow: hidden !important;
+    position: relative;
+  }
+  
+  .overlay-active::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 100;
+    pointer-events: none;
+  }
+  
+  /* Fixed z-index for the form */
+  .fixed.z-101 {
+    z-index: 101 !important;
   }
   
   #contact-heading {
-    font-size: 2rem;
-    text-align: left;
     font-size: 2rem;
     text-align: left;
   }
@@ -37,14 +47,10 @@
   #down-arrow {
     width: 100px;
     margin: 0 auto;
-    width: 100px;
-    margin: 0 auto;
     display: none;
   }
   
   #contact-subtext {
-    font-size: 1rem;
-    text-align: left;
     font-size: 1rem;
     text-align: left;
     display: block;
@@ -59,14 +65,10 @@
   #name-label,
   #email-label {
     margin: 0.5rem 0;
-    margin: 0.5rem 0;
     display: block;
   }
   
   #input-wrapper {
-    flex-direction: column;
-    width: 100%;
-    gap: 1rem;
     flex-direction: column;
     width: 100%;
     gap: 1rem;
@@ -75,29 +77,20 @@
   #name-input-box,
   #email-input-box {
     width: 100%;
-    width: 100%;
   }
   
   
   #name-input,
   #email-input {
     width: 100%;
-    width: 100%;
   }
   
   #message-label {
     margin: 0.5rem 0;
     display: block;
   }
-  
-  #message-label {
-    margin: 0.5rem 0;
-    display: block;
-  }
-  
   
   #message-wrapper {
-    width: 100%;
     width: 100%;
   }
   
@@ -106,15 +99,6 @@
   }
   
   #submit-btn {
-    width: 100%;
-    background-color: #4c3c3c;
-    transition: all 0.3s ease;
-  }
-  
-  #submit-btn:hover {
-    background-color: #ff5722;
-    transform: scale(1.02);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     width: 100%;
     background-color: #4c3c3c;
     transition: all 0.3s ease;
@@ -134,6 +118,7 @@
     cursor: pointer;
     font-size: 30px;
     transition: all 0.3s ease;
+    z-index: 102; /* Make sure the close button is above everything */
   }
   
   #close-btn:hover {
@@ -143,9 +128,6 @@
 
   @media (max-width: 1024px) {
     #left, #right {
-      padding: 1.5rem 1rem;
-    }
-    #right {
       padding: 1.5rem 1rem;
     }
   }

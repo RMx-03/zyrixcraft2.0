@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,6 +14,17 @@ type ClientHomeProps = {
 const ClientHome: React.FC<ClientHomeProps> = ({ setOverlay }) => {
   const [state, handleSubmit] = useForm("xblgzgjv");
   
+  // Set overlay to true when component mounts
+  useEffect(() => {
+    // Ensure overlay is set to true when the component mounts
+    setTimeout(() => {
+      setOverlay(true);
+    }, 100);
+    
+    // Clean up function to ensure overlay is set to false when component unmounts
+    return () => setOverlay(false);
+  }, [setOverlay]);
+  
   // Show success or error toast based on form submission result
   React.useEffect(() => {
     if (state.succeeded) {
@@ -23,8 +34,22 @@ const ClientHome: React.FC<ClientHomeProps> = ({ setOverlay }) => {
     }
   }, [state.succeeded, state.errors]);
   
+  // Function to handle close button click
+  const handleClose = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Explicitly set overlay to false
+    setOverlay(false);
+    
+    // Navigate back to homepage after a short delay
+    setTimeout(() => {
+      window.history.back();
+    }, 100);
+  };
+  
   return (
-    <div className="fixed z-101 inset-0 w-full h-screen flex flex-row md:flex-row flex-col items-stretch justify-center shadow-lg overflow-hidden">
+    <div className="fixed z-101 inset-0 w-full h-screen flex flex-col md:flex-row items-stretch justify-center shadow-lg overflow-hidden">
       {/* Left Section - Hidden on mobile */}
       <div
         id="left"
@@ -126,7 +151,7 @@ const ClientHome: React.FC<ClientHomeProps> = ({ setOverlay }) => {
               </p>
             </div>
           </div>
-          <div className="hidden md:block w-[2px] ml-5 h-[170px] bg-black rounded-3xl"></div>
+          <div className="hidden md:block w-[2px] ml-5 h-[170px] bg-white rounded-3xl"></div>
           <div className="ml-0 md:ml-5 flex flex-col gap-2 text-[18px] md:text-[20px] w-full md:w-[120px] justify-start items-center md:items-start">
             <p className="font-semibold mb-2">Follow Us</p>
             <div className="flex flex-col md:mt-2">
@@ -165,13 +190,15 @@ const ClientHome: React.FC<ClientHomeProps> = ({ setOverlay }) => {
       {/* Right Section (Form) - Full width on mobile */}
       <div id="right" className="w-full md:w-1/2 h-full md:h-screen font-serif bg-[#160f0f] text-white p-6 md:p-8 flex flex-col justify-start relative overflow-y-auto">
         <div className="relative w-full max-w-2xl mx-auto flex flex-col" id="right-container">
-          {/* Close Button */}
-          <FiX
+          {/* Close Button - Enhanced for better visibility and interaction */}
+          <button
             id="close-btn"
-            onClick={() => setOverlay(false)}
-            size={30}
-            className="absolute right-3 top-3 z-20 p-1 cursor-pointer text-white hover:text-orange-600 transition-colors duration-300 hover:scale-110"
-          />
+            onClick={handleClose}
+            aria-label="Close form"
+            className="absolute right-3 top-3 z-20 p-2 cursor-pointer text-white hover:text-orange-600 transition-colors duration-300 hover:scale-110 bg-[#4c3c3c] rounded-full flex items-center justify-center w-10 h-10"
+          >
+            <FiX size={24} />
+          </button>
           {/* Title Section - simplified version */}
           <div className="flex flex-col items-start w-full mb-6">
             <h2 className="text-3xl md:text-4xl font-bold text-left mb-3" id="contact-heading">
@@ -196,6 +223,7 @@ const ClientHome: React.FC<ClientHomeProps> = ({ setOverlay }) => {
                 id="email-input"
                 placeholder="ansh@gmail.com"
                 className="w-full bg-[#4c3c3c80] p-4 border-none rounded-2xl text-white placeholder:text-gray-300"
+                required
               />
               <ValidationError
                 prefix="Email"
@@ -215,6 +243,7 @@ const ClientHome: React.FC<ClientHomeProps> = ({ setOverlay }) => {
                 id="name-input"
                 placeholder="Ansh from zyrixcraft"
                 className="w-full bg-[#4c3c3c80] p-4 border-none rounded-2xl text-white placeholder:text-gray-300"
+                required
               />
               <ValidationError
                 prefix="Name"
@@ -233,6 +262,7 @@ const ClientHome: React.FC<ClientHomeProps> = ({ setOverlay }) => {
                 id="message-textarea"
                 placeholder="Something about your great idea"
                 className="w-full h-[150px] md:h-[180px] bg-[#4c3c3c80] border-none rounded-2xl p-4 resize-none text-white placeholder:text-gray-300"
+                required
               />
               <ValidationError
                 prefix="Message"
