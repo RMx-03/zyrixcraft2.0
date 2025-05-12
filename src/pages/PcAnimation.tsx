@@ -4,10 +4,23 @@ import { MacbookScroll } from '../components/MacbookScroll';
 const PcAnimation: React.FC = () => {
   return (
     <div className="overflow-hidden dark:bg-[#0b0b0f] w-full">
-      <div className="tablet:flex tablet:flex-col tablet:justify-center tablet:items-center tablet:py-10">
+      {/* Mobile-specific container */}
+      <div className="md:hidden tablet:hidden flex flex-col items-center justify-center py-10">
+        <MacbookScroll 
+          className="scale-[0.85] min-h-[100vh] mobile-view"
+        />
+      </div>
+
+      {/* Tablet-specific container */}
+      <div className="hidden tablet:flex tablet:flex-col tablet:justify-center tablet:items-center tablet:py-10">
         <MacbookScroll 
           className="tablet:py-0 tablet:min-h-[120vh]"
         />
+      </div>
+
+      {/* Desktop-specific container */}
+      <div className="hidden md:block tablet:hidden">
+        <MacbookScroll />
       </div>
     </div>
   );
@@ -34,6 +47,14 @@ style.innerHTML = `
     .tablet\\:w-\\[800px\\] { width: 800px; }
     .tablet\\:text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
     .tablet\\:font-bold { font-weight: 700; }
+  }
+  
+  /* Mobile-specific styles */
+  @media (max-width: 767px) {
+    .scale-\\[0\\.85\\] { transform: scale(0.85); }
+    .min-h-\\[90vh\\] { min-height: 90vh; }
+    .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+    .mobile-view { margin-bottom: -30vh; }
   }
 `;
 document.head.appendChild(style);
