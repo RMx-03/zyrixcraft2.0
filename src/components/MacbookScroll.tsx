@@ -69,7 +69,7 @@ export const MacbookScroll: React.FC<MacbookScrollProps> = ({ className = "" }) 
     // Different input ranges for different devices
     isMobile ? [0.05, 0.4] : isTablet ? [0.05, 0.35] : [0, 0.3], 
     // Different output ranges for different devices
-    [1.2, isMobile ? 2 : isTablet ? 1.6 : 3]
+    [1.2, isMobile ? 2 : isTablet ? 1.6 : 2.2]
   );
    
   const scaleY = useTransform(
@@ -77,7 +77,7 @@ export const MacbookScroll: React.FC<MacbookScrollProps> = ({ className = "" }) 
     // Different input ranges for different devices
     isMobile ? [0.05, 0.4] : isTablet ? [0.05, 0.35] : [0, 0.3], 
     // Different output ranges for different devices
-    [0.6, isMobile ? 2 : isTablet ? 1.5 : 2]
+    [0.6, isMobile ? 2 : isTablet ? 1.5 : 1.7]
   );
    
   // Adjust translate and rotate animations to match the new timing for tablet
@@ -110,7 +110,7 @@ export const MacbookScroll: React.FC<MacbookScrollProps> = ({ className = "" }) 
       className={`flex shrink-0 transform flex-col items-center justify-start py-0 
              min-h-[150vh] scale-[0.6] [perspective:800px] 
              sm:min-h-[180vh] sm:scale-[0.7] 
-             md:min-h-[280vh] md:scale-100 md:py-80
+             md:min-h-[180vh] md:scale-100 md:pt-0 md:items-center
              tablet:min-h-[80vh] tablet:scale-75 tablet:py-10 tablet:flex-col tablet:justify-start tablet:items-center ${className}`}>
 
       {/* Tablet-specific wrapper with fixed width */}
@@ -132,25 +132,26 @@ export const MacbookScroll: React.FC<MacbookScrollProps> = ({ className = "" }) 
             scaleX={scaleX}
             scaleY={scaleY}
             rotate={rotate}
-            translate={translate}
-            isMobile={false} />
+            translate={translate} />
         </div>
       </div>
 
       {/* Desktop view content */}
-      <div className="hidden md:block tablet:hidden w-full">
-        <div className="text-[23px] w-[200vw] text-white absolute top-56 left-[25%] text-3xl 
-                       font-semibold flex gap-2">
-          {textContent}
+      <div className="hidden md:block tablet:hidden w-full md:flex-col md:items-center md:pt-0 md:mt-0 md:mb-12 md:-translate-y-64">
+        <div className="w-full flex justify-center mt-0">
+          <div className="text-white text-3xl font-semibold flex gap-2 mb-16">
+            {textContent}
+          </div>
         </div>
         
-        <Lid
-          src={src}
-          scaleX={scaleX}
-          scaleY={scaleY}
-          rotate={rotate}
-          translate={translate}
-          isMobile={false} />
+        <div className="w-full flex justify-center">
+          <Lid
+            src={src}
+            scaleX={scaleX}
+            scaleY={scaleY}
+            rotate={rotate}
+            translate={translate} />
+        </div>
       </div>
 
       {/* Mobile view content - completely redesigned */}
@@ -190,7 +191,6 @@ type Lid = {
   rotate: any;
   translate: any;
   src: string;
-  isMobile: boolean;
 };
 
 // Special mobile-only version of the Lid component 
@@ -235,9 +235,9 @@ export const MobileLid: React.FC<MobileLidProps> = ({ scaleX, scaleY, rotate, tr
   );
 };
 
-export const Lid: React.FC<Lid> = ({ scaleX, scaleY, rotate, translate, src, isMobile }) => {
+export const Lid: React.FC<Lid> = ({ scaleX, scaleY, rotate, translate, src }) => {
   return (
-    <div className="relative mx-auto flex justify-center items-center [perspective:800px] w-full max-w-[90vw] tablet:max-w-[800px]">
+    <div className="relative mx-auto flex justify-center items-center [perspective:800px] w-full max-w-[90vw] tablet:max-w-[800px] md:max-w-[1000px]">
       {/* Laptop Image */}
       <img
         src={Laptop}
