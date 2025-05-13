@@ -1,6 +1,6 @@
-import React, { lazy, Suspense, ReactNode } from "react";
+import React, { lazy, Suspense, ReactNode, useState, useEffect } from "react";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Wrapper from "./components/Wrapper";
 import NotFound from "./components/NotFound"; // Make sure path is correct
 import "../src/pages/Thanks";
@@ -40,16 +40,35 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 }
 
 function App() {
+  // state to track if the initial loading is complete
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate initial loading time
+  useEffect(() => {
+    // timeout to ensure minimum loading screen display time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // 2 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // loader during initial loading
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <div className="bg-[var(--color-background)] overflow-x-hidden">
       <Router>
         <ErrorBoundary>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loader />}>
             <Routes>
               <Route path="/" element={<Wrapper />} />
               <Route path="/client" element={<ClientHome />} />
               <Route path="/thanks" element={<Thanks />} />
-              <Route path="/loader" element={<Loader />} />
+              <Route path="/loader" element={<Loader />} />              
+              <Route path="/404" element={<NotFound />} />              
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

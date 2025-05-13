@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { MacbookScroll } from '../components/MacbookScroll';
+import { MacbookScroll, MobileMacbookScroll, TabletMacbookScroll, DesktopMacbookScroll } from '../components/MacbookScroll';
 
 const PcAnimation: React.FC = () => {
   useEffect(() => {
     const style = document.createElement('style');
     style.innerHTML = `
-      @media (min-width: 768px) and (max-width: 1366px) {
+      /* Tablet styles - now specifically excluding iPad Pro */
+      @media (min-width: 768px) and (max-width: 1023px) {
         .tablet\\:flex { display: flex; }
         .tablet\\:block { display: block; }
         .tablet\\:flex-col { flex-direction: column; }
@@ -26,6 +27,16 @@ const PcAnimation: React.FC = () => {
         .tablet\\:font-bold { font-weight: 700; }
       }
       
+      /* iPad Pro specific styles */
+      @media (min-width: 1024px) and (max-width: 1366px) {
+        .ipad-pro\\:flex { display: flex; }
+        .ipad-pro\\:block { display: block; }
+        .ipad-pro\\:hidden { display: none; }
+        .ipad-pro\\:min-h-\\[120vh\\] { min-height: 120vh; }
+        .ipad-pro\\:scale-75 { transform: scale(0.75); }
+        .ipad-pro\\:py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+      }
+      
       /* Mobile-specific styles */
       @media (max-width: 767px) {
         .scale-\\[0\\.85\\] { transform: scale(0.85); }
@@ -35,16 +46,18 @@ const PcAnimation: React.FC = () => {
       }
       
       /* Desktop-specific styles */
-      @media (min-width: 1367px) {
+      @media (min-width: 1370px) {
         .desktop-centered {
-          margin: 0 auto;
+          margin: 0;
           display: flex;
-          justify-content: center;
-          align-items: flex-start;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
           width: 100%;
           padding-top: 0;
           margin-top: 0;
-          min-height: 180vh;
+          min-height: 200vh;
+          padding-bottom: 30vh;
         }
         .pb-20 {
           padding-bottom: 5rem;
@@ -54,6 +67,7 @@ const PcAnimation: React.FC = () => {
           top: 0;
           left: 0;
           right: 0;
+          overflow-y: visible;
         }
       }
     `;
@@ -66,25 +80,24 @@ const PcAnimation: React.FC = () => {
 
   return (
     <div className="overflow-hidden dark:bg-[#0b0b0f] w-full">
-      {/* Mobile-specific container */}
-      <div className="md:hidden tablet:hidden flex flex-col items-center justify-center py-10">
-        <MacbookScroll 
-          className="scale-[0.85] min-h-[100vh] mobile-view"
-        />
+      {/* Mobile view - screens smaller than 768px */}
+      <div className="block md:hidden">
+        <MobileMacbookScroll className="scale-[0.85] min-h-[100vh] mobile-view" />
       </div>
 
-      {/* Tablet-specific container */}
-      <div className="hidden tablet:flex tablet:flex-col tablet:justify-center tablet:items-center tablet:py-10">
-        <MacbookScroll 
-          className="tablet:py-0 tablet:min-h-[120vh]"
-        />
+      {/* Standard Tablet view - 768px to 1023px */}
+      <div className="hidden md:block lg:hidden xl:hidden">
+        <TabletMacbookScroll className="py-0 min-h-[120vh]" />
       </div>
 
-      {/* Desktop-specific container */}
-      <div className="hidden md:block tablet:hidden justify-center items-start pt-0 mt-0 pb-20 desktop-container">
-        <MacbookScroll 
-          className="desktop-centered pt-0 mt-0 min-h-[180vh]"
-        />
+      {/* iPad Pro view - 1024px to 1366px */}
+      <div className="hidden lg:block xl:hidden">
+        <TabletMacbookScroll className="py-0 min-h-[120vh]" />
+      </div>
+
+      {/* Desktop view - 1370px and above */}
+      <div className="hidden xl:block overflow-visible pt-4 mt-4">
+        <DesktopMacbookScroll className="desktop-centered pt-0 mt-0 min-h-[200vh] pb-[30vh]" />
       </div>
     </div>
   );
