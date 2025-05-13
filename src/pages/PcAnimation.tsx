@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { MacbookScroll, MobileMacbookScroll, TabletMacbookScroll, DesktopMacbookScroll } from '../components/MacbookScroll';
+import { MobileMacbookScroll, TabletMacbookScroll, DesktopMacbookScroll } from '../components/MacbookScroll';
 
 const PcAnimation: React.FC = () => {
   useEffect(() => {
