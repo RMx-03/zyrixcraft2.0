@@ -27,7 +27,7 @@ const Footer = () => {
 
     return (
         <div
-            id="footer"
+            id="Footer"
             className="w-screen min-h-[80vh] flex flex-col items-center pt-16 user-select-none pb-10"
             style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
         >

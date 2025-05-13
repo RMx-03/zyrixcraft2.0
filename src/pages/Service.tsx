@@ -29,7 +29,7 @@ const Service: React.FC = () => {
 
   return (
     <div
-      id="service"
+      id="Service"
       className="w-full bg-black text-white px-5 sm:px-8 md:px-12 lg:px-20 xl:px-40 py-8 sm:py-12 md:py-15 flex flex-col"
     >
       {/* SERVICE Heading */}

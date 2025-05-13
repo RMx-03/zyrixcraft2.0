@@ -43,3 +43,14 @@
 .pseudo-text-effect:hover::after {
     transform: translateY(0%);
 }
+@media screen and (max-width: 768px) {
+    .navbar-container {
+        padding: 0.8rem;
+       background-color: rgb(37, 35, 29);
+       color: white;
+       border-radius: 0.5rem;
+       top: 50px;
+       font-weight: bold;
+    }
+    
+}
