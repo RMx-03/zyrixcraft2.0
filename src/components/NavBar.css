@@ -1,7 +1,8 @@
 /* NavBar.css */
 
 /* Base styles */
-.navbar-container a {
+.navbar-container a,
+.navbar-container .pseudo-text-effect {
     color: inherit;
     text-decoration: none;
     width: 100%;

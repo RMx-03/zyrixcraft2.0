@@ -107,7 +107,7 @@ const Footer = () => {
                     <div className="text-left md:text-right mt-8 md:mt-0 md:pr-4 lg:pr-[2em]">
                         <h2 className="text-xl font-bold mb-6 text-white">Quick Links</h2>
                         <div className="space-y-4 text-white text-sm">
-                            <a href="#home" className="block hover:underline">Home</a>
+                            <a href="#Home" className="block hover:underline">Home</a>
                             <a href="#Service" className="block hover:underline">Services</a>
                             <a href="#Portfolio" className="block hover:underline">Portfolio</a>
                         </div>
