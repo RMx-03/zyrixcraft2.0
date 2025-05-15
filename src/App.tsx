@@ -66,8 +66,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Wrapper />} />
               <Route path="/client" element={<ClientHome />} />
-              <Route path="/thanks" element={<Thanks />} />
-              <Route path="/loader" element={<Loader />} />              
+              <Route path="/thanks" element={<Thanks />} />            
               <Route path="/404" element={<NotFound />} />              
               <Route path="*" element={<NotFound />} />
             </Routes>
