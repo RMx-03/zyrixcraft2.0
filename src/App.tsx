@@ -2,12 +2,11 @@ import React, { lazy, Suspense, ReactNode, useState, useEffect } from "react";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Wrapper from "./components/Wrapper";
-import NotFound from "./components/NotFound"; // Make sure path is correct
-import "../src/pages/Thanks";
+import NotFound from "./components/NotFound"; 
 import Thanks from "../src/pages/Thanks";
-const ClientHome = lazy(() => import("./pages/ClientHome"));
 import Loader from "./components/Loader";
-// Type definitions for ErrorBoundary
+
+const ClientHome = lazy(() => import("./pages/ClientHome"));
 interface ErrorBoundaryProps {
   children: ReactNode;
 }
@@ -40,26 +39,29 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 }
 
 function App() {
-  // state to track if the initial loading is complete
+  
   const [isLoading, setIsLoading] = useState(true);
 
-  // Simulate initial loading time
-  useEffect(() => {
-    // timeout to ensure minimum loading screen display time
+ 
+  useEffect(() => { 
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // 2 seconds
-
+    }, 2000); 
     return () => clearTimeout(timer);
   }, []);
 
-  // loader during initial loading
+
   if (isLoading) {
-    return <Loader />;
+    return (
+      <div className="w-screen h-screen">
+        <Loader />
+      </div>
+    );
   }
+  
 
   return (
-    <div className="bg-[var(--color-background)] overflow-x-hidden">
+    <div className=" bg-black  overflow-x-hidden">
       <Router>
         <ErrorBoundary>
           <Suspense fallback={<Loader />}>

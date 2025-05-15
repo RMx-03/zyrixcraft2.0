@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
-:root {
-  --color-background: #000;
-  --color-foreground: #fff;
-  --color-primary: #4D2CB7;
-}
 
-body {
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  width: 100%;
+  height: 100%;
   font-family: 'Inter', sans-serif;
   ::-webkit-scrollbar {
     display: none;
   }
 }
-
