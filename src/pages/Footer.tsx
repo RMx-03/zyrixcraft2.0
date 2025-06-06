@@ -17,7 +17,7 @@ const Footer = () => {
             link: "https://www.instagram.com/zyrixcraft?igsh=dWE0d2Vwbmx4NjBm",
         },
         { icon: FaGithub, label: "Github", link: "https://github.com/zyrixcraft" },
-        { icon: FaWhatsapp, label: "Whatsapp", link: "https://wa.me/919711625392" },
+        { icon: FaWhatsapp, label: "Whatsapp", link: "https://wa.me/919717102529" },
         {
             icon: FaLinkedin,
             label: "LinkedIn",
