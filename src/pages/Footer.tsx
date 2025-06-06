@@ -17,7 +17,7 @@ const Footer = () => {
             link: "https://www.instagram.com/zyrixcraft?igsh=dWE0d2Vwbmx4NjBm",
         },
         { icon: FaGithub, label: "Github", link: "https://github.com/zyrixcraft" },
-        { icon: FaWhatsapp, label: "Whatsapp", link: "https://wa.me/919711625392" },
+        { icon: FaWhatsapp, label: "Whatsapp", link: "https://wa.me/919717102529" },
         {
             icon: FaLinkedin,
             label: "LinkedIn",
@@ -80,13 +80,13 @@ const Footer = () => {
                             </p>
                             <p>
                                 <span>Phone: </span>
-                                <a href="tel:+91971162592" className="underline">
-                                    +91 97116 25392
+                                <a href="tel:+919717102529" className="underline">
+                                    +91 97171 02529
                                 </a>
                             </p>
                             <p>
-                                New Delhi - 110044, Near Union Bank<br />
-                                Said Village
+                                New Delhi, India - 110076, Near Union Bank<br />
+                                Aali Village
                             </p>
                         </div>
                     </div>
