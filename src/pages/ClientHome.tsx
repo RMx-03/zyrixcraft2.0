@@ -198,28 +198,30 @@ const ClientHome = () => {
       <div id="right" className="w-1/2 h-screen font-serif bg-[#000] text-white overflow-y-auto">
         <div className="relative px-8 py-6" id="right-container">
           {/* Close Button */}
-
-          <FiX
-            id="close-btn"
+          <button
             onClick={handleClose}
-            
-            className="absolute top-6 right-8 text-3xl flex justify-center items-center rounded-full hover:scale-[1.1] hover:cursor-pointer hover:bg-orange-600 p-2 transition-all duration-500 ease-in-out z-10"
-          />
+            className="absolute top-6 right-6 w-12 h-12 flex justify-center items-center rounded-full bg-gray-800/50 hover:bg-orange-600 hover:scale-110 transition-all duration-300 ease-in-out z-10 border border-gray-600 hover:border-orange-600"
+            aria-label="Close form"
+          >
+            <FiX className="text-2xl text-white" />
+          </button>
 
-          <h2 className="text-5xl mb-4" id="contact-heading">
+          <h2 className="text-5xl mb-6" id="contact-heading">
             Let's get in touch
           </h2>
-          <HiArrowLongDown  className=" text-orange-600 text-[8em] -ml-15 mb-4" />
-
-          <span
-            id="contact-subtext"
-            className="block text-[18px] mb-8 text-gray-300"
-          >
-            Excited to bring your vision to life! Let's create something amazing
-            together.
-            <br />
-            Call us for any inquiry.
-          </span>
+          
+          {/* Arrow and Text Side by Side */}
+          <div className="flex items-center gap-6 mb-8">
+            <HiArrowLongDown className="text-orange-600 text-[6em] flex-shrink-0" />
+            <div className="flex-1">
+              <p className="text-lg text-gray-300 leading-relaxed">
+                Excited to bring your vision to life! Let's create something amazing together.
+              </p>
+              <p className="text-orange-400 mt-2 font-medium">
+                Call us for any inquiry.
+              </p>
+            </div>
+          </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} action="https://formspree.io/f/mrbkpzaa" method="POST" id="contact-form" className="space-y-6">
