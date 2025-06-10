@@ -5,7 +5,10 @@ import logo from "../assets/ZyrixcraftLogo.webp";
 import { FiX,FiLinkedin,FiSend  } from "react-icons/fi";
 import {FaInstagram , FaXTwitter ,FaWhatsapp   } from "react-icons/fa6";
 import { HiArrowLongDown } from "react-icons/hi2";
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 import '../style/BecomeClient.css'
+import '../style/PhoneInput.css'
 import { useNavigate } from "react-router-dom";
 
 const ClientHome = () => {
@@ -14,6 +17,7 @@ const ClientHome = () => {
     name: '',
     email: '',
     mobile: '',
+    topic: '',
     message: ''
   });
   const [state, setState] = useState({
@@ -21,11 +25,18 @@ const ClientHome = () => {
     error: null
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
+    }));
+  };
+
+  const handlePhoneChange = (value: string | undefined) => {
+    setFormData(prev => ({
+      ...prev,
+      mobile: value || ''
     }));
   };
 
@@ -34,11 +45,10 @@ const ClientHome = () => {
       formData.name.trim() !== '' &&
       formData.email.trim() !== '' &&
       formData.mobile.trim() !== '' &&
+      formData.topic.trim() !== '' &&
       formData.message.trim() !== ''
     );
   };
-
-
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,16 +61,34 @@ const ClientHome = () => {
     setState(prev => ({ ...prev, submitting: true }));
     
     try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.mobile); // This will include the full international number
+      formDataToSend.append('topic', formData.topic);
+      formDataToSend.append('message', formData.message);
       
-      console.log('Form data:', formData);
-      toast.success('Message sent successfully!');
-      setFormData({
-        name: '',
-        email: '',
-        mobile: '',
-        message: ''
+      const response = await fetch('https://formspree.io/f/mrbkpzaa', {
+        method: 'POST',
+        body: formDataToSend,
+        headers: {
+          'Accept': 'application/json'
+        }
       });
-      navigate("/thanks");
+
+      if (response.ok) {
+        toast.success('Message sent successfully!');
+        setFormData({
+          name: '',
+          email: '',
+          mobile: '',
+          topic: '',
+          message: ''
+        });
+        navigate("/thanks");
+      } else {
+        throw new Error('Failed to send message');
+      }
     } catch (error) {
       toast.error('Failed to send message');
       console.error('Error:', error);
@@ -101,7 +129,7 @@ const ClientHome = () => {
             <p>Contact Us</p>
             <span>Phone:</span>
             <p className="hover:scale-[1.1] hover:cursor-pointer">
-              +91 9711625392
+              +91 9717102529
             </p>
             <span>Email:</span>
             <p
@@ -143,7 +171,7 @@ const ClientHome = () => {
             <div
               onClick={() =>
                 window.open(
-                  "https://www.linkedin.com/company/zyrixcraft/posts/?feedView=all",
+                  "https://www.linkedin.com/company/zyrixcraft/",
                   "_blank"
                 )
               }
@@ -155,7 +183,7 @@ const ClientHome = () => {
 
             <div
               onClick={() =>
-                window.open("https://wa.me/919711625392", "_blank")
+                window.open("https://wa.me/919717102529", "_blank")
               }
               className="flex gap-2 w-full justify-start items-center hover:scale-[1.1] hover:cursor-pointer"
             >
@@ -167,116 +195,154 @@ const ClientHome = () => {
       </div>
 
       {/* Right Section (Form) */}
-      <div id="right" className="w-1/2 h-screen font-serif bg-[#000] text-white">
-        <div className="relative" id="right-container">
+      <div id="right" className="w-1/2 h-screen font-serif bg-[#000] text-white overflow-y-auto">
+        <div className="relative px-8 py-6" id="right-container">
           {/* Close Button */}
 
           <FiX
             id="close-btn"
             onClick={handleClose}
             
-            className="absolute top-0 flex justify-center items-center rounded-full hover:scale-[1.1] hover:cursor-pointer hover:bg-orange-600  transition-all duration-500 ease-in-out"
+            className="absolute top-6 right-8 text-3xl flex justify-center items-center rounded-full hover:scale-[1.1] hover:cursor-pointer hover:bg-orange-600 p-2 transition-all duration-500 ease-in-out z-10"
           />
 
-          <h2 className="text-5xl" id="contact-heading">
+          <h2 className="text-5xl mb-4" id="contact-heading">
             Let's get in touch
           </h2>
-          <HiArrowLongDown  className=" text-orange-600 text-[8em] -ml-15  " />
+          <HiArrowLongDown  className=" text-orange-600 text-[8em] -ml-15 mb-4" />
 
           <span
             id="contact-subtext"
-            className="absolute top-17 left-10 text-[18px]"
+            className="block text-[18px] mb-8 text-gray-300"
           >
-            Excited to bring your vision to life! Let’s create something amazing
+            Excited to bring your vision to life! Let's create something amazing
             together.
             <br />
             Call us for any inquiry.
           </span>
 
-      {/* Form */}
-<form onSubmit={handleSubmit} id="contact-form">
-  <div className="w-full" id="form-wrapper">
-    {/* Name, Email, Mobile Inputs */}
-    <div className="w-full flex flex-col md:flex-row gap-5" id="input-wrapper">
-      
-      {/* Name Input */}
-      <div className="w-full" id="name-input-box">
-        <label htmlFor="name" className="text-xl block mb-2">Name</label>
-        <input
-          type="text"
-          name="name"
-          id="name-input"
-          placeholder="Ansh from zyrixcraft"
-          className="w-full bg-[#b8a4a45d] p-4 border-none rounded-2xl"
-          required
-          value={formData.name}
-          onChange={handleChange}
-        />
-      
-      </div>
+          {/* Form */}
+          <form onSubmit={handleSubmit} action="https://formspree.io/f/mrbkpzaa" method="POST" id="contact-form" className="space-y-6">
+            <div className="w-full" id="form-wrapper">
+              {/* Name, Email, Mobile Inputs */}
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mb-6" id="input-wrapper">
+                
+                {/* Name Input */}
+                <div className="w-full" id="name-input-box">
+                  <label htmlFor="name" className="text-xl block mb-2 text-white">Name *</label>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name-input"
+                    placeholder="Ansh from zyrixcraft"
+                    className="w-full bg-[#b8a4a45d] p-4 border-none rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                </div>
 
-      {/* Email Input */}
-      <div className="w-full" id="email-input-box">
-        <label htmlFor="email" className="text-xl block mb-2">Your Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email-input"
-          placeholder="ansh@gmail.com"
-          className="w-full bg-[#b8a4a45d] p-4 border-none rounded-2xl"
-          required
-          value={formData.email}
-          onChange={handleChange}
-        />
-       
-      </div>
+                {/* Email Input */}
+                <div className="w-full" id="email-input-box">
+                  <label htmlFor="email" className="text-xl block mb-2 text-white">Your Email *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email-input"
+                    placeholder="ansh@gmail.com"
+                    className="w-full bg-[#b8a4a45d] p-4 border-none rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
 
-      {/* Mobile Number Input */}
-      <div className="w-full" id="mobile-input-box">
-        <label htmlFor="mobile" className="text-xl block mb-2">Mobile Number</label>
-        <input
-          type="tel"
-          name="mobile"
-          id="mobile-input"
-          placeholder="+91 9876543210"
-          pattern="[0-9]{10}"
-          className="w-full bg-[#b8a4a45d] p-4 border-none rounded-2xl"
-          required
-          value={formData.mobile}
-          onChange={handleChange}
-        />
-      </div>
-    </div>
+              {/* Mobile Number Input */}
+              <div className="w-full mb-6" id="mobile-input-box">
+                <label htmlFor="mobile" className="text-xl block mb-2 text-white">
+                  Mobile Number *
+                </label>
+                <div className="phone-input-container">
+                  <PhoneInput
+                    name="mobile"
+                    placeholder="Enter phone number"
+                    value={formData.mobile}
+                    onChange={handlePhoneChange}
+                    defaultCountry="IN"
+                    international
+                    countryCallingCodeEditable={false}
+                    className="w-full"
+                    style={{
+                      '--PhoneInputCountryFlag-height': '1em',
+                      '--PhoneInputCountrySelectArrow-color': '#ffffff',
+                      '--PhoneInput-color--focus': '#fb923c',
+                    } as React.CSSProperties}
+                  />
+                </div>
+              </div>
 
-    {/* Message TextArea */}
-    <div className="flex flex-col mt-5" id="message-wrapper">
-      <label htmlFor="message" className="text-2xl block mb-2">
-        Tell us more about your project
-      </label>
-      <textarea
-        name="message"
-        id="message-textarea"
-        placeholder="Something about your great idea"
-        className="mt-2 w-full h-[200px] border-none bg-[#b8a4a45d] rounded-2xl p-5 pt-2 text-left resize-none"
-        required
-        value={formData.message}
-        onChange={handleChange}
-      />
-      
+              {/* Project Type Dropdown */}
+              <div className="w-full mb-6" id="topic-wrapper">
+                <label htmlFor="topic" className="text-xl block mb-2 text-white">
+                  What is your project about? *
+                </label>
+                <select
+                  name="topic"
+                  id="topic-input"
+                  className="w-full bg-[#b8a4a45d] text-white p-4 border-none rounded-2xl focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  value={formData.topic}
+                  onChange={handleChange}
+                  required
+                > 
+                  <option value="" disabled className="text-gray-400">
+                    -- Select a Topic --
+                  </option>
+                  <option value="ui-ux" className="text-black">
+                    UI/UX Design: Improve user experience
+                  </option>
+                  <option value="web-dev" className="text-black">
+                    Website Development: Build or update a website
+                  </option>
+                  <option value="graphic-design" className="text-black">
+                    Graphic Design: Logo, brochure, social media posts
+                  </option>
+                  <option value="consultation" className="text-black">
+                    Not Sure / Need Consultation
+                  </option>
+                </select>
+              </div>
 
-      {/* Submit Button */}
-      <button
-        id="submit-btn"
-        type="submit"
-        className="w-full md:w-[250px] text-[18px] flex gap-2 justify-center items-center h-[60px] mt-5 rounded-full bg-white text-orange-600 font-bold transition-all duration-500 ease-in-out hover:bg-orange-600 hover:text-white hover:shadow-lg hover:cursor-pointer"
-      >
-        {state.submitting ? "Sending..." : "Send Message"}
-        <FiSend className="text-2xl" />
-      </button>
-    </div>
-  </div>
-</form>
+              {/* Message TextArea */}
+              <div className="w-full mb-6" id="message-wrapper">
+                <label htmlFor="message" className="text-xl block mb-2 text-white">
+                  Tell us more about your project *
+                </label>
+                <textarea
+                  name="message"
+                  id="message-textarea"
+                  placeholder="Describe your project goals, requirements, timeline, and any specific details that would help us understand your vision..."
+                  className="w-full h-[200px] border-none bg-[#b8a4a45d] rounded-2xl p-4 text-white placeholder-gray-400 text-left resize-none focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
+              {/* Submit Button */}
+              <div className="w-full flex justify-center" id="submit-wrapper">
+                <button
+                  id="submit-btn"
+                  type="submit"
+                  disabled={state.submitting}
+                  className="w-full max-w-[300px] text-[18px] flex gap-2 justify-center items-center h-[60px] rounded-full bg-white text-orange-600 font-bold transition-all duration-500 ease-in-out hover:bg-orange-600 hover:text-white hover:shadow-lg hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {state.submitting ? "Sending..." : "Send Message"}
+                  <FiSend className="text-2xl" />
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
 
