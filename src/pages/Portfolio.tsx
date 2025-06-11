@@ -33,7 +33,7 @@ const serviceData = [
     description: "Our user-centric approach ensures intuitive, engaging interfaces that enhance usability and turn users into loyal customers. We focus on creating experiences that feel natural and delightful.",
     icon: <FaLaptopCode />,
     link: "https://ui-ux-ruddy.vercel.app/",
-    imageUrl: "https://images.unsplash.com/photo-1616400619175-5beda3a17896?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80",
+    imageUrl: "assets/portfolio/9.png",
     imageAlt: "UX/UI Design",
   },
   {
